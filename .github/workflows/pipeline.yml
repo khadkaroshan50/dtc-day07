@@ -63,7 +63,7 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -t rsa ${{ secrets.EC2_IP }} >> ~/.ssh/known_hosts
 
-    - name: SSH into EC2 & Set up Kubernetes
+    - name: SSH into EC2 & Set up server Kubernetes
       run: |
         ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.EC2_IP }} << 'EOF'
           # Set up kubectl configuration on EC2 (if not already set)
@@ -71,4 +71,3 @@ jobs:
           kubectl rollout restart deployment frontend-deployment -n crud
           kubectl rollout restart deployment backend-deployment -n crud
         EOF
-
